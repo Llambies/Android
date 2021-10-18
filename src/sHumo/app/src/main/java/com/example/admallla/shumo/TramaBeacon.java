@@ -2,9 +2,13 @@ package com.example.admallla.shumo;
 
 import java.util.Arrays;
 
-// -----------------------------------------------------------------------------------
-// @author: Jordi Bataller i Mascarell
-// -----------------------------------------------------------------------------------
+/**
+ * TramaBeacon.java
+ * <p>
+ * AUTOR: Adrian Maldonado Llambies
+ * FECHA: 17/10/2021
+ * DESCRIPCION: Clase para las respuestas HTTP
+ */
 public class TramaBeacon {
     private byte[] prefijo = null; // 9 bytes
     private byte[] uuid = null; // 16 bytes
@@ -17,8 +21,8 @@ public class TramaBeacon {
     private byte[] advFlags = null; // 3 bytes
     private byte[] advHeader = null; // 2 bytes
     private byte[] companyID = new byte[2]; // 2 bytes
-    private byte iBeaconType = 0 ; // 1 byte
-    private byte iBeaconLength = 0 ; // 1 byte
+    private byte iBeaconType = 0; // 1 byte
+    private byte iBeaconLength = 0; // 1 byte
 
     // -------------------------------------------------------------------------------
     // -------------------------------------------------------------------------------
@@ -88,20 +92,20 @@ public class TramaBeacon {
 
     // -------------------------------------------------------------------------------
     // -------------------------------------------------------------------------------
-    public TramaBeacon(byte[] bytes ) {
+    public TramaBeacon(byte[] bytes) {
         this.losBytes = bytes;
 
-        prefijo = Arrays.copyOfRange(losBytes, 0, 8+1 ); // 9 bytes
-        uuid = Arrays.copyOfRange(losBytes, 9, 24+1 ); // 16 bytes
-        major = Arrays.copyOfRange(losBytes, 22, 23+1 ); // 2 bytes
-        minor = Arrays.copyOfRange(losBytes, 24, 25+1 ); // 2 bytes
-        txPower = losBytes[ 29 ]; // 1 byte
+        prefijo = Arrays.copyOfRange(losBytes, 0, 8 + 1); // 9 bytes
+        uuid = Arrays.copyOfRange(losBytes, 9, 24 + 1); // 16 bytes
+        major = Arrays.copyOfRange(losBytes, 22, 23 + 1); // 2 bytes
+        minor = Arrays.copyOfRange(losBytes, 24, 25 + 1); // 2 bytes
+        txPower = losBytes[29]; // 1 byte
 
-        advFlags = Arrays.copyOfRange( prefijo, 0, 2+1 ); // 3 bytes
-        advHeader = Arrays.copyOfRange( prefijo, 3, 4+1 ); // 2 bytes
-        companyID = Arrays.copyOfRange( prefijo, 5, 6+1 ); // 2 bytes
-        iBeaconType = prefijo[ 7 ]; // 1 byte
-        iBeaconLength = prefijo[ 8 ]; // 1 byte
+        advFlags = Arrays.copyOfRange(prefijo, 0, 2 + 1); // 3 bytes
+        advHeader = Arrays.copyOfRange(prefijo, 3, 4 + 1); // 2 bytes
+        companyID = Arrays.copyOfRange(prefijo, 5, 6 + 1); // 2 bytes
+        iBeaconType = prefijo[7]; // 1 byte
+        iBeaconLength = prefijo[8]; // 1 byte
 
     } // ()
 } // class

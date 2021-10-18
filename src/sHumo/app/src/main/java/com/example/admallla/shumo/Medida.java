@@ -1,11 +1,11 @@
 package com.example.admallla.shumo;
 
 /**
- *
+ * Medida.java
+ * <p>
  * AUTOR: Adrian Maldonado Llambies
  * FECHA: 17/10/2021
  * DESCRIPCION: Clase medida
- *
  */
 public class Medida {
 
@@ -15,7 +15,6 @@ public class Medida {
     String lon;
 
     /**
-     *
      * Constructor
      *
      * @param fecha
@@ -32,14 +31,13 @@ public class Medida {
     }
 
     /**
-     *
      * String formateado en JSON
      *
      * @return
      */
     @Override
     public String toString() {
-        return "{\"fecha\":\"" + fecha + "\" , \"valor\": \" " + valor + "\", \"lat\": \""+ lat +"\", \"lon\": \""+ lon +"\"}";
+        return "{\"fecha\":\"" + fecha + "\" , \"valor\": \" " + valor + "\", \"lat\": \"" + lat + "\", \"lon\": \"" + lon + "\"}";
 
     }
 }

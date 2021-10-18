@@ -9,23 +9,23 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+
 /**
- *
+ * CheckUrl.java
+ * <p>
  * AUTOR: Adrian Maldonado Llambies
  * FECHA: 17/10/2021
  * DESCRIPCION: Clase para las respuestas HTTP
- *
  */
 public class CheckUrl extends AsyncTask<String, Void, String> {
 
     String directionMode = "driving";
 
-    public CheckUrl( ) {
+    public CheckUrl() {
 
     }
 
     /**
-     *
      * Comprueba en segundo plano la peticion http
      *
      * @param strings
@@ -59,7 +59,6 @@ public class CheckUrl extends AsyncTask<String, Void, String> {
     }
 
     /**
-     *
      * Devuelve la lista de Medidas
      *
      * @param strUrl Url dde la peticion
@@ -98,7 +97,6 @@ public class CheckUrl extends AsyncTask<String, Void, String> {
     }
 
     /**
-     *
      * Envia la peticion post al servidor
      *
      * @param strUrl Url con los datos

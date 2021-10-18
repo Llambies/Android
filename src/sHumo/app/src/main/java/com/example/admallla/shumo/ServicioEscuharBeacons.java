@@ -21,13 +21,13 @@ import java.util.Date;
 import java.util.List;
 
 /**
- *
+ * ServicioEscucharBeacons.java
+ * <p>
  * AUTOR: Adrian Maldonado Llambies
  * FECHA: 17/10/2021
  * DESCRIPCION: Servicio que escucha periodicamente los beacons
- *
  */
-public class ServicioEscuharBeacons extends IntentService{
+public class ServicioEscuharBeacons extends IntentService {
 
 
     private static final String ETIQUETA_LOG = "ServicioEscuharBeacons";
@@ -43,9 +43,7 @@ public class ServicioEscuharBeacons extends IntentService{
 
 
     /**
-     *
      * Constructor
-     *
      */
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public ServicioEscuharBeacons() {
@@ -62,9 +60,7 @@ public class ServicioEscuharBeacons extends IntentService{
 
 
     /**
-     *
      * Funcion para detener el servicio
-     *
      */
     public void parar() {
 
@@ -83,9 +79,7 @@ public class ServicioEscuharBeacons extends IntentService{
     }
 
     /**
-     *
      * Funcion que se llama al cerrar la aplicion
-     *
      */
     public void onDestroy() {
 
@@ -122,6 +116,8 @@ public class ServicioEscuharBeacons extends IntentService{
 
             while (this.seguir) {
                 buscarEsteDispositivoBTLE(dispositivoBuscado);
+                //Medida m = new Medida("222"+"",1,BeaconsActivity.getLatitud()+"",BeaconsActivity.getLongitut()+"");
+                //Log.d("",m.toString());
                 Thread.sleep(tiempoDeEspera);
                 Log.d(ETIQUETA_LOG, " ServicioEscucharBeacons.onHandleIntent: tras la espera:  " + contador);
                 contador++;
@@ -145,9 +141,7 @@ public class ServicioEscuharBeacons extends IntentService{
 
 
     /**
-     *
      * Busca todos los Dispositivos Bluetooth
-     *
      */
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public void buscarTodosLosDispositivosBTLE() {
@@ -186,7 +180,6 @@ public class ServicioEscuharBeacons extends IntentService{
     } // ()
 
     /**
-     *
      * Muestra los dispositivos por el Logcat
      *
      * @param resultado
@@ -233,7 +226,6 @@ public class ServicioEscuharBeacons extends IntentService{
 
 
     /**
-     *
      * Busca un dispositivo en concreto
      *
      * @param dispositivoBuscado
@@ -266,12 +258,13 @@ public class ServicioEscuharBeacons extends IntentService{
                 resultados.add(Utilidades.bytesToInt(tib.getMajor()));
                 resultados.add(Utilidades.bytesToInt(tib.getMinor()));
 
-                Log.d("",resultados.toString());
+                Log.d("", resultados.toString());
+
 
                 Date date = new Date();
-                Medida m = new Medida(date.getTime()+"",resultados.get(1),"23,98765"+"","23,98765"+"");
+                Medida m = new Medida(date.getTime() + "", resultados.get(1), BeaconsActivity.getLatitud() + "", BeaconsActivity.getLongitut() + "");
 
-                Log.d(ETIQUETA_LOG,m.toString() + " a ");
+                Log.d(ETIQUETA_LOG, m.toString() + " a ");
 
                 logicaFake.insertarMedida(m);
 
@@ -304,9 +297,7 @@ public class ServicioEscuharBeacons extends IntentService{
 
 
     /**
-     *
      * Detiene la busqueda de dispositivos
-     *
      */
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public void detenerBusquedaDispositivosBTLE() {
@@ -322,9 +313,7 @@ public class ServicioEscuharBeacons extends IntentService{
 
 
     /**
-     *
      * Prepara el servicio para el uso del Bluetooth
-     *
      */
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private void inicializarBlueTooth() {

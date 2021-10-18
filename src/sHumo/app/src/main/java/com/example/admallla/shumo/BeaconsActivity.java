@@ -3,6 +3,8 @@ package com.example.admallla.shumo;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.location.Location;
+import android.location.LocationListener;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,11 +12,20 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+/**
+ * BeaconsActivity.java
+ * <p>
+ * AUTOR: Adrian Maldonado Llambies
+ * FECHA: 17/10/2021
+ * DESCRIPCION: Activity que maneja la lectura de los datos del beacon
+ */
+
 @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-public class BeaconsActivity extends AppCompatActivity {
+public class BeaconsActivity extends AppCompatActivity implements LocationListener {
 
     private final String ETIQUETA_LOG = "BeaconsActivity";
     private Intent elIntentDelServicio = null;
@@ -26,6 +37,11 @@ public class BeaconsActivity extends AppCompatActivity {
     TextView t;
 
     ServicioEscuharBeacons servicio;
+
+    private static String latitud;
+    private static String longitut;
+
+    private static BeaconsActivity activity;
 
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -41,7 +57,7 @@ public class BeaconsActivity extends AppCompatActivity {
         e = findViewById(R.id.dispositivoBuscado);
         t = findViewById(R.id.textView2);
 
-
+        activity = this;
         servicio = new ServicioEscuharBeacons();
 
 
@@ -115,4 +131,32 @@ public class BeaconsActivity extends AppCompatActivity {
     } // ()
 
 
+    @Override
+    public void onLocationChanged(@NonNull Location location) {
+        latitud = location.getLatitude() + "";
+        longitut = location.getLongitude() + "";
+    }
+
+    @Override
+    public void onProviderEnabled(@NonNull String provider) {
+
+    }
+
+    @Override
+    public void onProviderDisabled(@NonNull String provider) {
+
+    }
+
+
+    public static String getLatitud() {
+        return latitud;
+    }
+
+    public static String getLongitut() {
+        return longitut;
+    }
+
+    public static BeaconsActivity getInstance() {
+        return activity;
+    }
 }
