@@ -24,7 +24,7 @@ import java.util.Arrays;
 
 public class LogicaFake {
 
-    private String ip = "10.236.14.61";
+    private String ip = "10.236.14.173";
 
     public LogicaFake() {
 

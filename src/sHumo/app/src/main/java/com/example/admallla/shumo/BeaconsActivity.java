@@ -1,10 +1,12 @@
 package com.example.admallla.shumo;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
 import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -43,7 +45,10 @@ public class BeaconsActivity extends AppCompatActivity implements LocationListen
 
     private static BeaconsActivity activity;
 
+    protected LocationManager lm;
+    boolean activado = false;
 
+    @SuppressLint("MissingPermission")
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,11 +64,18 @@ public class BeaconsActivity extends AppCompatActivity implements LocationListen
 
         activity = this;
         servicio = new ServicioEscuharBeacons();
+        lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
 
 
     }
 
-
+    /**
+     *
+     * Enciende el servicio
+     *
+     * @param v Vista requerida por el onClick
+     */
     public void encender(View v) {
         Log.d(ETIQUETA_LOG, " boton arrancar servicio Pulsado");
 
@@ -81,10 +93,17 @@ public class BeaconsActivity extends AppCompatActivity implements LocationListen
         this.elIntentDelServicio.putExtra("dispositivoBuscado", e.getText().toString());
 
         startService(this.elIntentDelServicio);
+        activado = true;
 
 
     }
 
+    /**
+     *
+     * Apaga el servicio
+     *
+     * @param v Vista requerida por el onClick
+     */
     public void apagar(View v) {
         if (this.elIntentDelServicio == null) {
             // no estaba arrancado
@@ -133,6 +152,8 @@ public class BeaconsActivity extends AppCompatActivity implements LocationListen
 
     @Override
     public void onLocationChanged(@NonNull Location location) {
+
+
         latitud = location.getLatitude() + "";
         longitut = location.getLongitude() + "";
     }
@@ -159,4 +180,6 @@ public class BeaconsActivity extends AppCompatActivity implements LocationListen
     public static BeaconsActivity getInstance() {
         return activity;
     }
+
+
 }

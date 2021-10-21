@@ -86,7 +86,7 @@ public class ServicioEscuharBeacons extends IntentService {
         Log.d(ETIQUETA_LOG, " ServicioEscucharBeacons.onDestroy() ");
 
 
-        this.parar(); // posiblemente no haga falta, si stopService() ya se carga el servicio y su worker thread
+        //this.parar(); // posiblemente no haga falta, si stopService() ya se carga el servicio y su worker thread
     }
 
     // ---------------------------------------------------------------------------------------------
@@ -107,7 +107,7 @@ public class ServicioEscuharBeacons extends IntentService {
         this.seguir = true;
 
         // esto lo ejecuta un WORKER THREAD !
-
+        buscarEsteDispositivoBTLE(dispositivoBuscado);
         long contador = 1;
 
         Log.d(ETIQUETA_LOG, " ServicioEscucharBeacons.onHandleIntent: empieza : thread=" + Thread.currentThread().getId());
@@ -115,14 +115,10 @@ public class ServicioEscuharBeacons extends IntentService {
         try {
 
             while (this.seguir) {
-                buscarEsteDispositivoBTLE(dispositivoBuscado);
-                //Medida m = new Medida("222"+"",1,BeaconsActivity.getLatitud()+"",BeaconsActivity.getLongitut()+"");
-                //Log.d("",m.toString());
+
                 Thread.sleep(tiempoDeEspera);
                 Log.d(ETIQUETA_LOG, " ServicioEscucharBeacons.onHandleIntent: tras la espera:  " + contador);
                 contador++;
-                detenerBusquedaDispositivosBTLE();
-                Thread.sleep(tiempoDeEspera);
             }
 
             Log.d(ETIQUETA_LOG, " ServicioEscucharBeacons.onHandleIntent : tarea terminada ( tras while(true) )");
@@ -287,7 +283,7 @@ public class ServicioEscuharBeacons extends IntentService {
 
         };
 
-        ScanFilter sf = new ScanFilter.Builder().setDeviceAddress(dispositivoBuscado).build();
+        ScanFilter sf = new ScanFilter.Builder().setDeviceName(dispositivoBuscado).build();
 
 
         Log.d(ETIQUETA_LOG, "  buscarEsteDispositivoBTLE(): empezamos a escanear buscando: " + dispositivoBuscado);
@@ -341,6 +337,8 @@ public class ServicioEscuharBeacons extends IntentService {
         }
 
     } // ()
+
+
 
 
 } // class
